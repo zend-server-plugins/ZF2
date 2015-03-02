@@ -1,0 +1,7 @@
+{
+  "name" : "Zend Framework 2",
+  "version" : "1.0.0",
+  "type": ["zray", "mvc"],
+  "eula": "EULA.txt",
+  "logo": "zray/logo.png"
+}
