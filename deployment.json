@@ -1,5 +1,6 @@
 {
-  "name" : "Zend Framework 2",
+  "name" : "zend framework 2",
+  "display_name" : "Zend Framework 2",
   "version" : "1.0.0",
   "type": ["zray", "route"],
   "logo": "zray/logo.png"
