@@ -133,6 +133,7 @@ class ZF2 {
 		}
 		
 		if(! function_exists('zend_shm_cache_store') || !zend_shm_cache_fetch('ZF2_version_isLatest')) {
+            
 		    if ($this->checkStatus('http://www.zend.com/products/server/license/ping')) {
     		    	$isLatest = Version::isLatest();
     		    	$latest   = Version::getLatest();
@@ -151,12 +152,12 @@ class ZF2 {
 			}
 		    }
 		} else {
-			if(function_exists('zend_shm_cache_fetch')) {
-				$isLatest = zend_shm_cache_fetch('ZF2_version_isLatest');
-				$latest = zend_shm_cache_fetch('ZF2_version_latest');
-			} else {
+            try{
+            $isLatest = Version::isLatest() ? 'yes' : 'no';
+    		$latest   = Version::getLatest();
+			} catch (Exception $e){
 				$latest = null;
-		        	$isLatest = 'N/A';
+		        $isLatest = 'N/A';
 			}
 		}
 

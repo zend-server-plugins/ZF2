@@ -1,7 +1,7 @@
 {
   "name" : "zend framework 2",
   "display_name" : "Zend Framework 2",
-  "version" : "1.0.1",
+  "version" : "1.0.2",
   "type": ["zray", "route"],
   "logo": "logo.png",
   "eula": "LICENSE.txt",
