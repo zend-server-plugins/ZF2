@@ -29,12 +29,19 @@ class ZF2 {
 		$mvcEvent = $context["functionArgs"][1];
 
 		if ($mvcEvent instanceof MvcEvent) {
-			$storage['events'][] = array(	'name' => $context["functionArgs"][0],
-    										'target' => $this->getEventTarget($mvcEvent),
-    										'file'   => $this->getEventTriggerFile(),
-    										'line'   => $this->getEventTriggerLine(),
-    										'memory' => $this->formatSizeUnits(memory_get_usage(true)),
-    										'time' => $this->formatTime($context['durationInclusive']) . 'ms');
+            $memoryUsage = memory_get_usage(true);
+            if (empty($memoryUsage) || !is_numeric($memoryUsage)) {
+                $memoryUsage = 0;
+            }
+            
+            $storage['events'][] = array(	
+                'name' => $context["functionArgs"][0],
+                'target' => $this->getEventTarget($mvcEvent),
+                'file'   => $this->getEventTriggerFile(),
+                'line'   => $this->getEventTriggerLine(),
+                'memory (MB)' => number_format ( $memoryUsage / (1024 * 1024), 2 ),
+                'time (ms)' => $this->formatTime($context['durationInclusive'])
+            );
 		}
 
 		$this->collectVersionData($storage);
@@ -303,26 +310,6 @@ class ZF2 {
 	    return $reorderedArray + $config;
 	}
 
-	private function formatSizeUnits($bytes) {
-
-		if ($bytes >= 1073741824) {
-			$bytes = number_format ( $bytes / 1073741824, 2 ) . ' GB';
-		} elseif ($bytes >= 1048576) {
-			$bytes = number_format ( $bytes / 1048576, 2 ) . ' MB';
-		} elseif ($bytes >= 1024) {
-			$bytes = number_format ( $bytes / 1024, 2 ) . ' KB';
-		} elseif ($bytes > 1) {
-			$bytes = $bytes . ' bytes';
-		} elseif ($bytes == 1) {
-			$bytes = $bytes . ' byte';
-		}
-        else
-        {
-            $bytes = '0 bytes';
-        }
-
-        return $bytes;
-	}
 
 	private function formatTime($ms) {
 		//$uSec = $input % 1000;
