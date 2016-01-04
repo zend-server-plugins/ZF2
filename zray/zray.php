@@ -159,13 +159,8 @@ class ZF2 {
             }
             }
         } else {
-            try{
-            $isLatest = Version::isLatest() ? 'yes' : 'no';
-            $latest   = Version::getLatest();
-            } catch (Exception $e){
-                $latest = null;
-                $isLatest = 'N/A';
-            }
+	        $isLatest = zend_shm_cache_fetch('ZF2_version_isLatest');
+	        $latest = zend_shm_cache_fetch('ZF2_version_latest');
         }
 
         $latest = ($latest === null) ? 'N/A' : $latest;
