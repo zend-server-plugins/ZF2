@@ -135,37 +135,10 @@ class ZF2 {
 
     private function collectVersionData(&$storage) {
         
-        if (! function_exists('curl_init') || ! class_exists('Zend\Version\Version') || $this->isLatestVersionSaved){
+     	if (! class_exists('Zend\Version\Version') || $this->isLatestVersionSaved){
             return;
         }
-        
-        if(! function_exists('zend_shm_cache_store') || !zend_shm_cache_fetch('ZF2_version_isLatest')) {
-            
-            if ($this->checkStatus('http://www.zend.com/products/server/license/ping')) {
-                    $isLatest = Version::isLatest();
-                    $latest   = Version::getLatest();
-                    $isLatest = ($isLatest) ? 'yes' : 'no';
-    
-                    if(function_exists('zend_shm_cache_store')) {
-                zend_shm_cache_store('ZF2_version_isLatest', $isLatest);
-                        zend_shm_cache_store('ZF2_version_latest', $latest);
-                    }
-            } else {
-                $latest = null;
-                $isLatest = 'N/A';
-            if(function_exists('zend_shm_cache_store')) {
-                zend_shm_cache_store('ZF2_version_isLatest', $isLatest);
-                zend_shm_cache_store('ZF2_version_latest', $latest);
-            }
-            }
-        } else {
-	        $isLatest = zend_shm_cache_fetch('ZF2_version_isLatest');
-	        $latest = zend_shm_cache_fetch('ZF2_version_latest');
-        }
-
-        $latest = ($latest === null) ? 'N/A' : $latest;
-
-        $storage['version'][] = array('version' => Version::VERSION, 'isLatest' => $isLatest,'latest' => $latest);
+        $storage['version'][] = array('version' => Version::VERSION);
         $this->isLatestVersionSaved = true;
     }
 
