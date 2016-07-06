@@ -10,7 +10,6 @@ use Serializable,
     Traversable,
     Closure,
     Zend\Mvc\MvcEvent,
-    Zend\Version\Version,
     Zend\ModuleManager\Feature\ConfigProviderInterface,
     ReflectionObject,
     ReflectionProperty,
@@ -21,7 +20,6 @@ class ZF2 {
     private $isConfigSaved = false;
     private $isModulesSaved = false;
     private $isEventSaved = false;
-    private $isLatestVersionSaved = false;
     private $helpers = array();
     private $backtrace = null;
 
@@ -44,7 +42,6 @@ class ZF2 {
             );
         }
 
-        $this->collectVersionData($storage);
         $this->collectRequest($context["functionArgs"][0], $mvcEvent, $storage);
         $this->collectConfigurations($mvcEvent, $storage);
     }
@@ -132,15 +129,6 @@ class ZF2 {
     ////////////////////////////////////////////////////////////////
     //   PRIVATES
     ////////////////////////////////////////////////////////////////
-
-    private function collectVersionData(&$storage) {
-        
-     	if (! class_exists('Zend\Version\Version') || $this->isLatestVersionSaved){
-            return;
-        }
-        $storage['version'][] = array('version' => Version::VERSION);
-        $this->isLatestVersionSaved = true;
-    }
 
     /**
      * Returns the line number of the file from which the event was triggered.
