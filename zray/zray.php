@@ -193,8 +193,16 @@ class ZF2 {
             $templates[] = 'N/A';
         }
 
+        $request = $mvcEvent->getRequest();
+        $method = '';
+        if (get_class($request) == 'Zend\Console\Request') {
+            $method = 'CLI';
+        } else {
+            $method = $request->getMethod();
+        }
+        
         $data = array(
-                'method'     => $mvcEvent->getRequest()->getMethod(),
+                'method'     => $method,
                 'status'     => $mvcEvent->getResponse()->getStatusCode(),
                 'route'      => ($match === null) ? 'N/A' : $match->getMatchedRouteName(),
                 'action'     => ($match === null) ? 'N/A' : $match->getParam('action', 'N/A'),
