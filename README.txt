@@ -7,5 +7,4 @@ The Zend Framework 2 plugin also defines the routing logic for Zend Framework 1 
 - **Modules:** shows a list of all the Zend Framework 2 modules loaded on the page, with information on the module configuration and the location of the source file.
 - **Request:** displays general information on the request, including the request method, the HTTP response, the request path, the request action and controller, and the used template.
 - **Response:** provides information on the response, including the response header, metadata, and response content.
-- **Version:** provides basic information on the Zend Framework 2 version.
 - **View Helpers:** shows a list of all the Zend Framework 2 view helpers used on the page, including a count and properties.
